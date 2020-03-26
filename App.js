@@ -30,6 +30,7 @@ export default function App(props) {
         await Font.loadAsync({
           ...Ionicons.font,
           'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+          'gotham-medium': require('./assets/fonts/Gotham-Medium.otf')
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
@@ -47,10 +48,10 @@ export default function App(props) {
     return null;
   } else {
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container}}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="Root" component={BottomTabNavigator} />
           </Stack.Navigator>
         </NavigationContainer>

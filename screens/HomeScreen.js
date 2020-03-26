@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import { Image, Platform, StyleSheet, Text, TouchableOpacity, View , Dimensions, Alert} from 'react-native';
+import { Image, Platform, StyleSheet, TouchableOpacity, View , Dimensions, Alert} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 import axios from 'axios'
@@ -7,6 +7,7 @@ import axios from 'axios'
 
 import { MonoText } from '../components/StyledText';
 import MarginHorizontal from '../components/MarginHorizontal';
+import Text from '../components/TextDefault';
 
 export default function HomeScreen() {
 
@@ -24,26 +25,43 @@ export default function HomeScreen() {
   },[])
  
   return (
-    <View style={{...styles.container,...styles.primaryBackground}}> 
-      <MarginHorizontal>
-        <View style={{height: 100, marginTop: 10}}>
-          <View style={styles.flexHorizontal}>
-            <View style={{...styles.card, flex: 1}}>
-              <Text style={{...styles.colorYellow}}>Cases</Text>
-              <Text>{Data.cases}</Text>
-            </View>
-            <View style={{...styles.card, flex: 1}}>
-              <Text style={{...styles.colorRed}}>Death</Text>
-              <Text>{Data.deaths}</Text>
-            </View>
-            <View style={{...styles.card, flex: 1}}>
-              <Text style={{...styles.colorGreen}}>Recovered</Text>
-              <Text>{Data.recovered}</Text>
+    <View style={{...styles.container,...styles.primaryBackground}}>
+      <View style={{marginTop:30}}>
+        <MarginHorizontal>
+          <View style={{height: 100, marginTop: 10}}>
+            <View style={styles.flexHorizontal}>
+              <View style={{...styles.card, flex: 1}}>
+                <Text style={{...styles.colorYellow}}>Cases</Text>
+                <Text style={{...styles.textBold}}>{Data.cases}</Text>
+              </View>
+              <View style={{...styles.card, flex: 1}}>
+                <Text style={{...styles.colorRed}}>Death</Text>
+                <Text style={{...styles.textBold}}>{Data.deaths}</Text>
+              </View>
+              <View style={{...styles.card, flex: 1}}>
+                <Text style={{...styles.colorGreen}}>Recovered</Text>
+                <Text style={{...styles.textBold}}>{Data.recovered}</Text>
+              </View>
             </View>
           </View>
-        </View>
-      </MarginHorizontal>
-
+          <View style={{height: 100, marginTop: 10}}>
+            <View style={styles.flexHorizontal}>
+              <View style={{...styles.card, flex: 1}}>
+                <Text style={{...styles.colorYellow}}>Cases</Text>
+                <Text style={{...styles.textBold}}>{Data.cases}</Text>
+              </View>
+              <View style={{...styles.card, flex: 1}}>
+                <Text style={{...styles.colorRed}}>Death</Text>
+                <Text style={{...styles.textBold}}>{Data.deaths}</Text>
+              </View>
+              <View style={{...styles.card, flex: 1}}>
+                <Text style={{...styles.colorGreen}}>Recovered</Text>
+                <Text style={{...styles.textBold}}>{Data.recovered}</Text>
+              </View>
+            </View>
+          </View>
+        </MarginHorizontal>
+      </View> 
     </View>
   );
 }
@@ -102,6 +120,9 @@ const styles = StyleSheet.create({
   colorYellow: {
     color:'#fdcb6e'
   },
+  textBold: {
+    fontWeight: "bold"
+  },
   flexHorizontal: {
     flex: 1,
     flexDirection: "row",
@@ -110,8 +131,10 @@ const styles = StyleSheet.create({
   },
   card: {
     backgroundColor: '#ffffff',
-    padding: 20,
-    // borderRadius: 10
+    paddingHorizontal: 15,
+    paddingVertical: 25,
+    borderRadius: 10,
+    margin:5
   },
   developmentModeText: {
     marginBottom: 20,
