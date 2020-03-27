@@ -1,5 +1,5 @@
 import React, {useState,useEffect} from 'react';
-import { Image, Platform, StyleSheet, TouchableOpacity, View , Dimensions, Alert} from 'react-native';
+import { Image, Platform, StyleSheet, TouchableOpacity, View , Dimensions, Alert, Picker} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 import axios from 'axios'
@@ -8,58 +8,96 @@ import axios from 'axios'
 import { MonoText } from '../components/StyledText';
 import MarginHorizontal from '../components/MarginHorizontal';
 import Text from '../components/TextDefault';
+import Flex from '../components/Flex';
+import TextDefault from '../components/TextDefault';
 
 export default function HomeScreen() {
 
-  const [Data, setData] = useState({hit:[]})
+  const [GlobalData, setGlobalData] = useState({hit:[]})
+  const [RegionalData, setRegionalData] = useState({hit:[]})
+  const [nations, setNations] = useState({})
+  const [nation, setNation] = useState({})
 
   useEffect(() => {
     axios.get('https://coronavirus-19-api.herokuapp.com/all','')
+      .then(res => {
+        setGlobalData(res.data)
+      })
+      .catch(err => {console.error(err)})
+
+    axios.get('https://coronavirus-19-api.herokuapp.com/countries','')
     .then(res => {
-      setData(res.data)
-      // Alert.alert(JSON.stringify(Data))
+      setNations(res.data)
     })
-    .catch(err => {
-      console.error(err); 
-    })
+    .catch(err => {console.error(err)})
   },[])
  
+  const changeRegional = (nation) => {
+    axios.get('https://coronavirus-19-api.herokuapp.com/countries/' + nation ,'')
+    .then(res => {
+      setRegionalData(res.data)
+    })
+  }
+
   return (
     <View style={{...styles.container,...styles.primaryBackground}}>
       <View style={{marginTop:30}}>
         <MarginHorizontal>
           <View style={{height: 100, marginTop: 10}}>
+            <TextDefault>Global</TextDefault>
             <View style={styles.flexHorizontal}>
               <View style={{...styles.card, flex: 1}}>
                 <Text style={{...styles.colorYellow}}>Cases</Text>
-                <Text style={{...styles.textBold}}>{Data.cases}</Text>
+                <Text style={{...styles.textBold}}>{GlobalData.cases}</Text>
               </View>
               <View style={{...styles.card, flex: 1}}>
                 <Text style={{...styles.colorRed}}>Death</Text>
-                <Text style={{...styles.textBold}}>{Data.deaths}</Text>
+                <Text style={{...styles.textBold}}>{GlobalData.deaths}</Text>
               </View>
               <View style={{...styles.card, flex: 1}}>
                 <Text style={{...styles.colorGreen}}>Recovered</Text>
-                <Text style={{...styles.textBold}}>{Data.recovered}</Text>
+                <Text style={{...styles.textBold}}>{GlobalData.recovered}</Text>
               </View>
             </View>
           </View>
-          <View style={{height: 100, marginTop: 10}}>
-            <View style={styles.flexHorizontal}>
-              <View style={{...styles.card, flex: 1}}>
-                <Text style={{...styles.colorYellow}}>Cases</Text>
-                <Text style={{...styles.textBold}}>{Data.cases}</Text>
-              </View>
-              <View style={{...styles.card, flex: 1}}>
-                <Text style={{...styles.colorRed}}>Death</Text>
-                <Text style={{...styles.textBold}}>{Data.deaths}</Text>
-              </View>
-              <View style={{...styles.card, flex: 1}}>
-                <Text style={{...styles.colorGreen}}>Recovered</Text>
-                <Text style={{...styles.textBold}}>{Data.recovered}</Text>
+          <TextDefault>Regional</TextDefault>
+          <View style={[styles.card]}>
+            <Picker
+              mode="dropdown"
+              selectedValue={nation}
+              onValueChange={(e) => {
+                setNation(e)
+                changeRegional(e)
+              }}>
+              {
+                nations.map((n) => {
+                  return (
+                    <Picker.Item label={n.country} value={n.country} key={n.country}/>
+                  )
+                })
+              }
+            </Picker>
+            <View style={{height: 100, marginTop: 10}}>
+              <View style={styles.flexHorizontal}>
+                <View style={{...styles.card, flex: 1}}>
+                  <Text style={{...styles.colorYellow}}>Cases</Text>
+                  <Flex direction='horizontal'>
+                    <Text style={{...styles.textBold}}>{RegionalData.cases}</Text>
+                    <Text style={{...styles.textBold}}>{RegionalData.todayCases}</Text>
+                  </Flex>
+                </View>
+                <View style={{...styles.card, flex: 1}}>
+                  <Text style={{...styles.colorRed}}>Death</Text>
+                  <Text style={{...styles.textBold}}>{RegionalData.deaths}</Text>
+                </View>
+                <View style={{...styles.card, flex: 1}}>
+                  <Text style={{...styles.colorGreen}}>Recovered</Text>
+                  <Text style={{...styles.textBold}}>{RegionalData.recovered}</Text>
+                </View>
               </View>
             </View>
           </View>
+          
         </MarginHorizontal>
       </View> 
     </View>
