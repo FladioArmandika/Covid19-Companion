@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         padding: 15
     },
     primary: {
-        backgroundColor: '#e77f67',
+        backgroundColor: Colors.primary,
     }
 })
 

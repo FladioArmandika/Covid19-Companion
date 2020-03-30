@@ -1,8 +1,9 @@
 
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 import { StyleSheet, Dimensions, View } from 'react-native'
+import axios from "axios";
 
 export default function MapScreen() {
 
@@ -12,6 +13,8 @@ export default function MapScreen() {
       latitudeDelta: 0.2,
       longitudeDelta: 0.2,
     })
+
+    const [kasus, setKasus] = useState([])
 
     const markers = [
         {
@@ -28,6 +31,17 @@ export default function MapScreen() {
         }
     ]
 
+
+    useEffect(() => {
+        axios.get('https://indonesia-covid-19.mathdro.id/api/kasus','')
+            .then(res => {
+                setKasus(res.data.data)
+            })
+            .catch(err => {
+                console.error(err); 
+            })
+    }, [])
+
     return (
         <View>
             <MapView 
@@ -35,14 +49,23 @@ export default function MapScreen() {
                 annotations={markers}
                 style={styles.mapStyle}>
                     {
-                        markers.map((location) => {
+                        kasus ? 
+                        kasus.map((location) => {
                             return (
-                                <Marker coordinate = {{latitude: location.latitude,longitude: location.longitude}}
+                                <Marker 
+                                    coordinate = {{
+                                        latitude: Number(location.lat),
+                                        longitude: Number(location.long)}}
                                     pinColor = {"purple"} // any color
                                     title={"title"}
                                     description={"description"}/>
                             )
                         })
+                        :
+                        <Marker coordinate = {{latitude: 0,longitude: 0}}
+                            pinColor = {"purple"} // any color
+                            title={"title"}
+                            description={"description"}/>
                     }
             </MapView>
         </View>

@@ -64,17 +64,17 @@ export default function HomeScreen({navigation}) {
         <MarginHorizontal>
           <Card>
             <Flex horizontal parent>
-              <Flex>
-                <Text>Kasus</Text>
-                <Text>{numbers(indoData.jumlahKasus)}</Text>
+              <Flex alignItems='center'>
+                <TextDefault>Kasus</TextDefault>
+                <TextDefault>{numbers(indoData.jumlahKasus)}</TextDefault>
               </Flex>
-              <Flex>
-                <Text>Meninggal</Text>
-                <Text>{numbers(indoData.meninggal)}</Text>
+              <Flex alignItems='center'>
+                <TextDefault>Meninggal</TextDefault>
+                <TextDefault>{numbers(indoData.meninggal)}</TextDefault>
               </Flex>
-              <Flex>
-                <Text>Sembuh</Text>
-                <Text>{numbers(indoData.sembuh)}</Text>
+              <Flex alignItems='center'>
+                <TextDefault>Sembuh</TextDefault>
+                <TextDefault>{numbers(indoData.sembuh)}</TextDefault>
               </Flex>
             </Flex>
             <ButtonApp primary onPress='indodetail' nav={navigation}>Detail</ButtonApp>

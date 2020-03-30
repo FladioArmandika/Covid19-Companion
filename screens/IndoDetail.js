@@ -9,12 +9,14 @@ import Margin from '../components/Margin';
 import Padding from '../components/Padding';
 import Card from '../components/Card';
 import { ScrollView } from 'react-native-gesture-handler';
+import Loader from 'react-native-easy-content-loader';
 import Background from '../components/Background';
+import Colors from '../constants/Colors';
 
 export default function IndoDetail() {
 
     const [kasus, setKasus] = useState([])
-    const [kasusProvinsi, setKasusProvinsi] = useState([])
+    const [kasusProvinsi, setKasusProvinsi] = useState(null)
 
     useEffect(() => {
 
@@ -45,8 +47,8 @@ export default function IndoDetail() {
                 <View>
                     <Padding horizontal={20} top={50}>
                         <Flex alignItems='center' parent>
-                            <TextDefault medium>Kasus</TextDefault>
-                            <TextDefault jumbo>{kasus.jumlahKasus}</TextDefault>
+                            <TextDefault medium white>Kasus</TextDefault>
+                            <TextDefault jumbo white>{kasus.jumlahKasus}</TextDefault>
                         </Flex>
                         <Card>
                             <Flex horizontal spacebetween parent>
@@ -68,12 +70,13 @@ export default function IndoDetail() {
                     <Padding horizontal={20} top={20}>
                         <TextDefault xlarge>Provinsi</TextDefault>
                         {
+                            kasusProvinsi ?
                             kasusProvinsi.map((e) => {
                                 return (
                                     <Card>
                                         <Flex horizontal parent spacebetween>
                                             <Flex>
-                                                <TextDefault>{e.provinsi}</TextDefault>
+                                                <TextDefault large>{e.provinsi}</TextDefault>
                                                 <TextDefault>{e.kasusPosi}</TextDefault>
                                             </Flex>
                                             <Flex parent>
@@ -87,6 +90,13 @@ export default function IndoDetail() {
                                     </Card>
                                 )
                             })
+                            : 
+                            <Loader
+                                primaryColor={Colors.secondaryBackground}
+                                secondaryColor={Colors.primaryBackground}
+                                animationDuration={500}>
+                               <TextDefault>dadw</TextDefault>
+                            </Loader>
                         }
                     </Padding>
                 </View>
