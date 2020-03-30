@@ -54,7 +54,7 @@ export default function App(props) {
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="Root" component={BottomTabNavigator} />
-            <Stack.Screen name="IndoDetail" component={IndoDetail} />
+            <Stack.Screen name="indodetail" component={IndoDetail} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

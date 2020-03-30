@@ -4,7 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import * as WebBrowser from 'expo-web-browser';
 import axios from 'axios'
 
-
+import Colors from '../constants/Colors'
 import { MonoText } from '../components/StyledText';
 import MarginHorizontal from '../components/MarginHorizontal';
 import Text from '../components/TextDefault';
@@ -12,6 +12,7 @@ import Flex from '../components/Flex';
 import TextDefault from '../components/TextDefault';
 import Card from '../components/Card';
 import ButtonApp from '../components/ButtonApp.js';
+import { numbers } from '../helpers/numbers';
 
 
 export default function HomeScreen({navigation}) {
@@ -65,35 +66,33 @@ export default function HomeScreen({navigation}) {
             <Flex horizontal parent>
               <Flex>
                 <Text>Kasus</Text>
-                <Text>{indoData.jumlahKasus}</Text>
+                <Text>{numbers(indoData.jumlahKasus)}</Text>
               </Flex>
               <Flex>
                 <Text>Meninggal</Text>
-                <Text>{indoData.meninggal}</Text>
+                <Text>{numbers(indoData.meninggal)}</Text>
               </Flex>
               <Flex>
                 <Text>Sembuh</Text>
-                <Text>{indoData.sembuh}</Text>
+                <Text>{numbers(indoData.sembuh)}</Text>
               </Flex>
             </Flex>
             <ButtonApp primary onPress='indodetail' nav={navigation}>Detail</ButtonApp>
           </Card>
           <View style={{height: 100, marginTop: 10}}>
-            <MarginHorizontal>
-              <TextDefault>Global</TextDefault>
-            </MarginHorizontal>
+            <TextDefault>Global</TextDefault>
             <View style={styles.flexHorizontal}>
               <View style={{...styles.card, flex: 1}}>
                 <Text style={{...styles.colorYellow}}>Kasus</Text>
-                <Text style={{...styles.textBold}}>{GlobalData.cases}</Text>
+                <Text style={{...styles.textBold}}>{numbers(GlobalData.cases)}</Text>
               </View>
               <View style={{...styles.card, flex: 1}}>
                 <Text style={{...styles.colorRed}}>Meninggal</Text>
-                <Text style={{...styles.textBold}}>{GlobalData.deaths}</Text>
+                <Text style={{...styles.textBold}}>{numbers(GlobalData.deaths)}</Text>
               </View>
               <View style={[styles.card, {flex: 1}]}>
                 <Text style={[styles.colorGreen]}>Sembuh</Text>
-                <Text style={[styles.textBold]}>{GlobalData.recovered}</Text>
+                <Text style={[styles.textBold]}>{numbers(GlobalData.recovered)}</Text>
               </View>
             </View>
           </View>
@@ -191,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   primaryBackground: {
-    backgroundColor: '#F6F5FB'
+    backgroundColor: Colors.primaryBackground
   },
   colorRed: {
     color:'#d63031'

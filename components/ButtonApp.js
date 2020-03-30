@@ -3,6 +3,8 @@ import { Button, StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import TextDefault from './TextDefault';
 
+import Colors from '../constants/Colors'
+
 export default function ButtonApp(props) {
     return (
         // <Button title={props.children} />

@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text, Alert } from 'react-native'
 
 export default function Flex(props) {
 
         return (
             <View style={[
-                
                 props.horizontal ? styles.horizontal : '',
                 props.vertical ? styles.vertical : '',
                 props.spacebetween ? styles.spaceBetween : '',
@@ -15,7 +14,9 @@ export default function Flex(props) {
                 {alignContent: props.alignContent},
                 {alignSelf: props.alignSelf},
                 props.parent ? {flex: 0} : styles.flex,
+                props.style, 
                 ]}>
+                {/* <Text>{JSON.stringify(props.style)}</Text> */}
                 {props.children}
             </View>
         )
@@ -25,6 +26,9 @@ export default function Flex(props) {
 }
 
 const styles = StyleSheet.create({
+    test: {
+        backgroundColor: '#0f0fff'
+    },  
     flex: {
         flex: 1,
     },
