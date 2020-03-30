@@ -11,6 +11,7 @@ export default function(containerRef) {
           Home: 'home',
           Links: 'links',
           Settings: 'settings',
+          IndoDetail: 'IndoDetail'
         },
       },
     },

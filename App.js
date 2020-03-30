@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
+import IndoDetail from './screens/IndoDetail';
 
 const Stack = createStackNavigator();
 
@@ -53,6 +54,7 @@ export default function App(props) {
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen name="Root" component={BottomTabNavigator} />
+            <Stack.Screen name="IndoDetail" component={IndoDetail} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
