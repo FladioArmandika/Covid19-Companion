@@ -13,6 +13,7 @@ import TextDefault from '../components/TextDefault';
 import Card from '../components/Card';
 import ButtonApp from '../components/ButtonApp.js';
 import { numbers } from '../helpers/numbers';
+import Background from '../components/Background';
 
 
 export default function HomeScreen({navigation}) {
@@ -59,12 +60,12 @@ export default function HomeScreen({navigation}) {
   }
 
   return (
-    <View style={{...styles.container,...styles.primaryBackground}}>
+    <Background bgprimary height='100%'>
       <View style={{marginTop:30}}>
         <MarginHorizontal>
           <Card>
             <Flex horizontal parent>
-              <Flex alignItems='center'>
+              <Flex alignItems='flex-start'>
                 <TextDefault>Kasus</TextDefault>
                 <TextDefault>{numbers(indoData.jumlahKasus)}</TextDefault>
               </Flex>
@@ -72,12 +73,12 @@ export default function HomeScreen({navigation}) {
                 <TextDefault>Meninggal</TextDefault>
                 <TextDefault>{numbers(indoData.meninggal)}</TextDefault>
               </Flex>
-              <Flex alignItems='center'>
+              <Flex alignItems='flex-end'>
                 <TextDefault>Sembuh</TextDefault>
                 <TextDefault>{numbers(indoData.sembuh)}</TextDefault>
               </Flex>
             </Flex>
-            <ButtonApp primary onPress='indodetail' nav={navigation}>Detail</ButtonApp>
+            <ButtonApp primary onPress='indodetail' nav={navigation} marginTop={20}>Detail</ButtonApp>
           </Card>
           <View style={{height: 100, marginTop: 10}}>
             <TextDefault>Global</TextDefault>
@@ -143,7 +144,7 @@ export default function HomeScreen({navigation}) {
           
         </MarginHorizontal>
       </View> 
-    </View>
+    </Background>
   );
 }
 

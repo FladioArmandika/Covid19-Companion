@@ -8,12 +8,13 @@ import MarginVertical from '../components/MarginVertical';
 import Margin from '../components/Margin';
 import Padding from '../components/Padding';
 import Card from '../components/Card';
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import Loader from 'react-native-easy-content-loader';
 import Background from '../components/Background';
 import Colors from '../constants/Colors';
+import { numbers } from '../helpers/numbers';
 
-export default function IndoDetail() {
+export default function IndoDetail({navigation}) {
 
     const [kasus, setKasus] = useState([])
     const [kasusProvinsi, setKasusProvinsi] = useState(null)
@@ -37,6 +38,10 @@ export default function IndoDetail() {
             })
     }, [])
 
+    const goToProvinsiDetail = (provinsi) => {
+        navigation.navigate('provinsidetail', provinsi)
+    }
+
     return (
         <Background bgprimary>
             <ScrollView>
@@ -48,21 +53,21 @@ export default function IndoDetail() {
                     <Padding horizontal={20} top={50}>
                         <Flex alignItems='center' parent>
                             <TextDefault medium white>Kasus</TextDefault>
-                            <TextDefault jumbo white>{kasus.jumlahKasus}</TextDefault>
+                            <TextDefault jumbo white>{numbers(kasus.jumlahKasus)}</TextDefault>
                         </Flex>
                         <Card>
                             <Flex horizontal spacebetween parent>
                                 <Flex alignItems='center'>
                                     <TextDefault>Perawatan</TextDefault>
-                                    <TextDefault>{kasus.perawatan}</TextDefault>
+                                    <TextDefault>{numbers(kasus.perawatan)}</TextDefault>
                                 </Flex>
                                 <Flex alignItems='center'>
                                     <TextDefault>Meninggal</TextDefault>
-                                    <TextDefault>{kasus.meninggal}</TextDefault>
+                                    <TextDefault>{numbers(kasus.meninggal)}</TextDefault>
                                 </Flex>
                                 <Flex alignItems='center'>
                                     <TextDefault>Sembuh</TextDefault>
-                                    <TextDefault>{kasus.sembuh}</TextDefault>
+                                    <TextDefault>{numbers(kasus.sembuh)}</TextDefault>
                                 </Flex>
                             </Flex>
                         </Card>
@@ -74,19 +79,21 @@ export default function IndoDetail() {
                             kasusProvinsi.map((e) => {
                                 return (
                                     <Card>
-                                        <Flex horizontal parent spacebetween>
-                                            <Flex>
-                                                <TextDefault large>{e.provinsi}</TextDefault>
-                                                <TextDefault>{e.kasusPosi}</TextDefault>
-                                            </Flex>
-                                            <Flex parent>
+                                        <TouchableOpacity
+                                            onPress={() => goToProvinsiDetail(e)}>
+                                            <Flex horizontal parent spacebetween>
                                                 <Flex>
-                                                    <TextDefault>{e.kasusSemb}</TextDefault>
-                                                    <TextDefault>{e.kasusMeni}</TextDefault>
+                                                    <TextDefault large>{e.provinsi}</TextDefault>
+                                                    <TextDefault>{e.kasusPosi}</TextDefault>
+                                                </Flex>
+                                                <Flex parent>
+                                                    <Flex>
+                                                        <TextDefault>{e.kasusSemb}</TextDefault>
+                                                        <TextDefault>{e.kasusMeni}</TextDefault>
+                                                    </Flex>
                                                 </Flex>
                                             </Flex>
-                                        </Flex>
-                                        
+                                        </TouchableOpacity>
                                     </Card>
                                 )
                             })

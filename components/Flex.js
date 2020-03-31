@@ -1,25 +1,29 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, View, Text, Alert } from 'react-native'
 
-export default function Flex(props) {
+export default function Flex({
+    parent, style, children,
+    horizontal, vertical,
+    spacebetween, spacearound, center, 
+    alignItems, alignContent, alignSelf
+}) {
 
-        return (
-            <View style={[
-                props.horizontal ? styles.horizontal : '',
-                props.vertical ? styles.vertical : '',
-                props.spacebetween ? styles.spaceBetween : '',
-                props.spacearound ? styles.spaceAround : '',
-                props.center ? styles.justifyCenter : '', 
-                {alignItems: props.alignItems},
-                {alignContent: props.alignContent},
-                {alignSelf: props.alignSelf},
-                props.parent ? {flex: 0} : styles.flex,
-                props.style, 
-                ]}>
-                {/* <Text>{JSON.stringify(props.style)}</Text> */}
-                {props.children}
-            </View>
-        )
+    return (
+        <View style={[
+            horizontal ? styles.horizontal : '',
+            vertical ? styles.vertical : '',
+            spacebetween ? styles.spaceBetween : '',
+            spacearound ? styles.spaceAround : '',
+            center ? styles.justifyCenter : '', 
+            {alignItems: alignItems},
+            {alignContent: alignContent},
+            {alignSelf: alignSelf},
+            parent ? {flex: 0} : styles.flex,
+            style, 
+            ]}>
+            {children}
+        </View>
+    )
 
 
     

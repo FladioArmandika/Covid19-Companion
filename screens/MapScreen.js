@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react'
 import MapView, { Marker } from 'react-native-maps'
 import { StyleSheet, Dimensions, View } from 'react-native'
 import axios from "axios";
+import Background from '../components/Background';
 
 export default function MapScreen() {
 
@@ -43,7 +44,7 @@ export default function MapScreen() {
     }, [])
 
     return (
-        <View>
+        <Background>
             <MapView 
                 region={region}
                 annotations={markers}
@@ -68,7 +69,7 @@ export default function MapScreen() {
                             description={"description"}/>
                     }
             </MapView>
-        </View>
+        </Background>
     )
 }
 

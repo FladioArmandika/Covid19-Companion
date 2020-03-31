@@ -11,7 +11,8 @@ export default function(containerRef) {
           Home: 'home',
           Links: 'links',
           Settings: 'settings',
-          IndoDetail: 'indodetail'
+          IndoDetail: 'indodetail',
+          ProvinsiDetail: 'provinsidetail',
         },
       },
     },

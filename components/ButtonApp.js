@@ -5,20 +5,25 @@ import TextDefault from './TextDefault';
 
 import Colors from '../constants/Colors'
 
-export default function ButtonApp(props) {
+export default function ButtonApp({
+    children, style, nav, light, dark,
+    primary, secondary, 
+    margin, marginTop,
+    onPress
+}) {
     return (
-        // <Button title={props.children} />
         <TouchableOpacity 
-            onPress={() => props.nav.navigate(props.onPress)}
+            onPress={() => nav.navigate(onPress)}
             style={[
                 styles.button,
-                props.primary ? styles.primary : '',
+                primary ? styles.primary : '',
+                marginTop ? {marginTop: marginTop} : '',
             ]}>
             {
-                props.light ? 
-                <TextDefault>DETAIL</TextDefault>
+                light ? 
+                <TextDefault>{children}</TextDefault>
                 :
-                <TextDefault white>DETAIL</TextDefault>
+                <TextDefault white>{children}</TextDefault>
             }
         </TouchableOpacity>
     )
