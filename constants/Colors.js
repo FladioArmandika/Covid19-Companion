@@ -13,6 +13,9 @@ export default {
   noticeText: '#fff',
 
   primary: '#FE808C',
-  primaryBackground: '#F6F5FB'
+  primaryBackground: '#F6F5FB',
+
+  primaryText: '#303952',
+  secondaryText: '#596275'
 
 };

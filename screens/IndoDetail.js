@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import TextDefault from '../components/TextDefault'
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import axios from 'axios';
 import Flex from '../components/Flex';
 import MarginTop from '../components/MarginVertical';
@@ -18,9 +18,11 @@ export default function IndoDetail({navigation}) {
 
     const [kasus, setKasus] = useState([])
     const [kasusProvinsi, setKasusProvinsi] = useState(null)
+    const [kasusHarian, setKasusHarian] = useState()
 
     useEffect(() => {
 
+        // GET DATA BERDASARKAN PROVINSI
         axios.get('https://indonesia-covid-19.mathdro.id/api/provinsi','')
             .then(res => {
                 setKasusProvinsi(res.data.data)
@@ -29,9 +31,26 @@ export default function IndoDetail({navigation}) {
                 console.error(err); 
             })
 
+        // GET DATA INDONESIA
         axios.get('https://indonesia-covid-19.mathdro.id/api/','')
             .then(res => {
               setKasus(res.data)
+            })
+            .catch(err => {
+              console.error(err); 
+            })
+        
+        // GET DATA HARIAN
+        axios.get('https://indonesia-covid-19.mathdro.id/api/harian','')
+            .then(res => {
+                // const dateNow = new Date(1585440000000).getTime()
+                // const dateD = new Date(1585353600000).getTime()
+
+                // // 86400000
+                // const dateResult = dateNow - dateD
+
+                const lastData = res.data.data.reverse()[0]
+                setKasusHarian(lastData)
             })
             .catch(err => {
               console.error(err); 
@@ -43,7 +62,7 @@ export default function IndoDetail({navigation}) {
     }
 
     return (
-        <Background bgprimary>
+        <Background bgprimary height='100%'>
             <ScrollView>
                 <Background     
                     primary absolute 
@@ -60,14 +79,23 @@ export default function IndoDetail({navigation}) {
                                 <Flex alignItems='center'>
                                     <TextDefault>Perawatan</TextDefault>
                                     <TextDefault>{numbers(kasus.perawatan)}</TextDefault>
+                                    { kasusHarian ? 
+                                      <TextDefault>(+{kasusHarian.jumlahKasusBaruperHari})</TextDefault> : <TextDefault></TextDefault>
+                                    }
                                 </Flex>
                                 <Flex alignItems='center'>
                                     <TextDefault>Meninggal</TextDefault>
                                     <TextDefault>{numbers(kasus.meninggal)}</TextDefault>
+                                    { kasusHarian ? 
+                                      <TextDefault>(+{kasusHarian.jumlahKasusMeninggalperHari})</TextDefault> : <TextDefault></TextDefault>
+                                    }
                                 </Flex>
                                 <Flex alignItems='center'>
                                     <TextDefault>Sembuh</TextDefault>
                                     <TextDefault>{numbers(kasus.sembuh)}</TextDefault>
+                                    { kasusHarian ? 
+                                      <TextDefault>(+{kasusHarian.jumlahKasusSembuhperHari})</TextDefault> : <TextDefault></TextDefault>
+                                    }
                                 </Flex>
                             </Flex>
                         </Card>
