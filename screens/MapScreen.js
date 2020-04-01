@@ -8,6 +8,9 @@ import * as Location from "expo-location";
 import * as Permissions from 'expo-permissions'
 import Background from '../components/Background';
 import TextDefault from '../components/TextDefault';
+import Card from '../components/Card';
+import Container from '../components/Container';
+import Padding from '../components/Padding';
 
 export default function MapScreen({navigator}) {
 
@@ -71,13 +74,13 @@ export default function MapScreen({navigator}) {
 
     return (
         <Background>
-            {/* <Background absolute width={200} height={300} top={0} left={0} z={5}>
-                <TextDefault>
-                {
-                    region ? JSON.stringify(region) : 'dawdwa'
-                }
-                </TextDefault>
-            </Background> */}
+            <Container absolute top={0} left={0} width='100%' height={200} z={5}>
+                <Padding>
+                    <Card>
+                        <TextDefault>Good</TextDefault>
+                    </Card>
+                </Padding>
+            </Container>
             <MapView 
                 region={region}
                 annotations={markers}
