@@ -18,7 +18,7 @@ export default function IndoDetail({navigation}) {
 
     const [kasus, setKasus] = useState([])
     const [kasusProvinsi, setKasusProvinsi] = useState(null)
-    const [kasusHarian, setKasusHarian] = useState()
+    const [kasusHarian, setKasusHarian] = useState(null)
 
     useEffect(() => {
 
@@ -79,21 +79,21 @@ export default function IndoDetail({navigation}) {
                                 <Flex alignItems='center'>
                                     <TextDefault>Perawatan</TextDefault>
                                     <TextDefault>{numbers(kasus.perawatan)}</TextDefault>
-                                    { kasusHarian ? 
+                                    { kasusHarian && kasusHarian.jumlahKasusBaruperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusBaruperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                                 <Flex alignItems='center'>
                                     <TextDefault>Meninggal</TextDefault>
                                     <TextDefault>{numbers(kasus.meninggal)}</TextDefault>
-                                    { kasusHarian ? 
+                                    { kasusHarian && kasusHarian.jumlahKasusMeninggalperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusMeninggalperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                                 <Flex alignItems='center'>
                                     <TextDefault>Sembuh</TextDefault>
                                     <TextDefault>{numbers(kasus.sembuh)}</TextDefault>
-                                    { kasusHarian ? 
+                                    { kasusHarian && kasusHarian.jumlahKasusSembuhperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusSembuhperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
