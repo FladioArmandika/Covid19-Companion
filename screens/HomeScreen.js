@@ -22,8 +22,14 @@ export default function HomeScreen({navigation}) {
 
   const [GlobalData, setGlobalData] = useState({hit:[]})
   const [RegionalData, setRegionalData] = useState({hit:[]})
+  const [kasusHarian, setKasusHarian] = useState(null)
   const [nations, setNations] = useState([])
   const [indoData, setIndoData] = useState([])
+
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+
 
   useEffect(() => {
     axios.get('https://coronavirus-19-api.herokuapp.com/all','')
@@ -50,6 +56,17 @@ export default function HomeScreen({navigation}) {
       .catch(err => {
         console.error(err); 
       })
+
+    // GET DATA HARIAN
+    axios.get('https://indonesia-covid-19.mathdro.id/api/harian','')
+      .then(res => {
+          const lastData = res.data.data.reverse()[0]
+          setKasusHarian(lastData)
+      })
+      .catch(err => {
+        console.error(err); 
+      })
+
   },[])
  
   const changeRegional = (nation) => {
@@ -73,20 +90,31 @@ export default function HomeScreen({navigation}) {
         <MarginHorizontal>
           <Card>
             <Margin bottom={20}>
-              <TextDefault xlarge center>Indonesia</TextDefault> 
+              <Flex horizontal parent spacebetween>
+                <TextDefault xlarge center bold>Indonesia</TextDefault> 
+                <TextDefault center secondary>
+                  {
+                    kasusHarian ?  
+                    new Date(kasusHarian.tanggal).getDate() + ' ' + 
+                    monthNames[new Date(kasusHarian.tanggal).getMonth()] + ' ' + 
+                    new Date(kasusHarian.tanggal).getFullYear()
+                    : ''
+                  }  
+                </TextDefault> 
+              </Flex>
             </Margin>
             <Flex horizontal parent>
-              <Flex alignItems='center'>
-                <TextDefault colorWarning>Kasus</TextDefault>
-                <TextDefault bold large>{numbers(indoData.jumlahKasus)}</TextDefault>
+              <Flex alignItems='flex-start'>
+                <TextDefault secondary>Kasus</TextDefault>
+                <TextDefault large>{numbers(indoData.jumlahKasus)}</TextDefault>
               </Flex>
               <Flex alignItems='center'>
-                <TextDefault colorDanger>Meninggal</TextDefault>
-                <TextDefault bold large>{numbers(indoData.meninggal)}</TextDefault>
+                <TextDefault secondary>Meninggal</TextDefault>
+                <TextDefault large>{numbers(indoData.meninggal)}</TextDefault>
               </Flex>
-              <Flex alignItems='center'>
-                <TextDefault colorSuccess>Sembuh</TextDefault>
-                <TextDefault bold large>{numbers(indoData.sembuh)}</TextDefault>
+              <Flex alignItems='flex-end'>
+                <TextDefault secondary>Sembuh</TextDefault>
+                <TextDefault large>{numbers(indoData.sembuh)}</TextDefault>
               </Flex>
             </Flex>
             <ButtonApp primary onPress='indodetail' nav={navigation} marginTop={20}>Detail</ButtonApp>
@@ -94,20 +122,31 @@ export default function HomeScreen({navigation}) {
           <Margin top={20}>
             <Card>
               <Margin bottom={20}>
-                <TextDefault xlarge center>Global</TextDefault>
+                <Flex horizontal parent spacebetween>
+                  <TextDefault xlarge center bold>Global</TextDefault>
+                  <TextDefault center secondary>
+                    {
+                      kasusHarian ?  
+                      new Date(kasusHarian.tanggal).getDate() + ' ' + 
+                      monthNames[new Date(kasusHarian.tanggal).getMonth()] + ' ' + 
+                      new Date(kasusHarian.tanggal).getFullYear()
+                      : ''
+                    }  
+                  </TextDefault> 
+                </Flex>
               </Margin>
               <Flex horizontal parent>
-                <Flex alignItems="center">
-                  <TextDefault colorWarning>Kasus</TextDefault>
-                  <TextDefault bold large>{numbers(GlobalData.cases)}</TextDefault>
+                <Flex alignItems="flex-start">
+                  <TextDefault secondary>Kasus</TextDefault>
+                  <TextDefault large>{numbers(GlobalData.cases)}</TextDefault>
                 </Flex>
                 <Flex alignItems="center">
-                  <TextDefault colorDanger>Meninggal</TextDefault>
-                  <TextDefault bold large>{numbers(GlobalData.deaths)}</TextDefault>
+                  <TextDefault secondary>Meninggal</TextDefault>
+                  <TextDefault large>{numbers(GlobalData.deaths)}</TextDefault>
                 </Flex>
-                <Flex alignItems="center">
-                  <TextDefault colorSuccess>Sembuh</TextDefault>
-                  <TextDefault bold large>{numbers(GlobalData.recovered)}</TextDefault>
+                <Flex alignItems="flex-end">
+                  <TextDefault secondary>Sembuh</TextDefault>
+                  <TextDefault large>{numbers(GlobalData.recovered)}</TextDefault>
                 </Flex>
               </Flex>
               <ButtonDefault primary onPress={goToGlobalDetail} marginTop={20}>Detail</ButtonDefault>

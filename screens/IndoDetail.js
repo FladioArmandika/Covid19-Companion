@@ -84,21 +84,21 @@ export default function IndoDetail({navigation}) {
                         <Card>
                             <Flex horizontal spacebetween parent>
                                 <Flex alignItems='center'>
-                                    <TextDefault colorWarning>Perawatan</TextDefault>
+                                    <TextDefault secondary>Perawatan</TextDefault>
                                     <TextDefault bold large>{numbers(kasus.perawatan)}</TextDefault>
                                     { kasusHarian && kasusHarian.jumlahKasusBaruperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusBaruperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                                 <Flex alignItems='center'>
-                                    <TextDefault colorDanger>Meninggal</TextDefault>
+                                    <TextDefault secondary>Meninggal</TextDefault>
                                     <TextDefault bold large>{numbers(kasus.meninggal)}</TextDefault>
                                     { kasusHarian && kasusHarian.jumlahKasusMeninggalperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusMeninggalperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                                 <Flex alignItems='center'>
-                                    <TextDefault colorSuccess>Sembuh</TextDefault>
+                                    <TextDefault secondary>Sembuh</TextDefault>
                                     <TextDefault bold large>{numbers(kasus.sembuh)}</TextDefault>
                                     { kasusHarian && kasusHarian.jumlahKasusSembuhperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusSembuhperHari})</TextDefault> : <TextDefault></TextDefault>

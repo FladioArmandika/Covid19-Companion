@@ -18,7 +18,7 @@ export default {
   secondary: '#D3EDE8',
 
   primaryText: '#303952',
-  secondaryText: '#596275',
+  secondaryText: '#a5b1c2',
 
   success: '#00b894',
   danger: '#d63031',
