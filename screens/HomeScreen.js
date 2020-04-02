@@ -23,8 +23,6 @@ export default function HomeScreen({navigation}) {
   const [GlobalData, setGlobalData] = useState({hit:[]})
   const [RegionalData, setRegionalData] = useState({hit:[]})
   const [nations, setNations] = useState([])
-  
-
   const [indoData, setIndoData] = useState([])
 
   useEffect(() => {
@@ -71,7 +69,7 @@ export default function HomeScreen({navigation}) {
 
   return (
     <Background bgprimary height='100%'>
-      <View style={{marginTop:30}}>
+      <View style={{marginTop:50}}>
         <MarginHorizontal>
           <Card>
             <Margin bottom={20}>

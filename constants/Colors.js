@@ -12,8 +12,10 @@ export default {
   noticeBackground: tintColor,
   noticeText: '#fff',
 
-  primary: '#FE808C',
+  // primary: '#FE808C',
+  primary: '#115846',
   primaryBackground: '#F6F5FB',
+  secondary: '#D3EDE8',
 
   primaryText: '#303952',
   secondaryText: '#596275',

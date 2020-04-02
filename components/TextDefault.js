@@ -6,7 +6,7 @@ import Colors from '../constants/Colors';
 export default function TextDefault({
         children, secondary,
         small, medium, large, xlarge, jumbo, 
-        white, bold, style, center,
+        white, bold, style, center, left, right,
         colorPrimary,
         colorDanger, colorWarning, colorSuccess
     }) {
@@ -16,6 +16,8 @@ export default function TextDefault({
                 {color: Colors.primaryText},
                 style, 
                 center ? {textAlign: "center"} : '',
+                left ? {textAlign: "left"} : '',
+                right ? {textAlign: "right"} : '',
                 bold ? styles.bold : '', 
                 white ? styles.white: '',
                 secondary ? {color: Colors.secondaryText} : '',

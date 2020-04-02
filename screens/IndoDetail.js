@@ -105,16 +105,18 @@ export default function IndoDetail({navigation}) {
                                     }
                                 </Flex>
                             </Flex>
-                            <TextDefault small center>
-                                {
-                                    kasusHarian ?  
-                                    'terakhir update : ' +
-                                    new Date(kasusHarian.tanggal).getDate() + '-' + 
-                                    new Date(kasusHarian.tanggal).getMonth() + '-' + 
-                                    new Date(kasusHarian.tanggal).getFullYear()
-                                    : ''
-                                }
-                            </TextDefault>
+                            <Margin top={20}>
+                                <TextDefault small center secondary>
+                                    {
+                                        kasusHarian ?  
+                                        'terakhir update : ' +
+                                        new Date(kasusHarian.tanggal).getDate() + '-' + 
+                                        new Date(kasusHarian.tanggal).getMonth() + '-' + 
+                                        new Date(kasusHarian.tanggal).getFullYear()
+                                        : ''
+                                    }
+                                </TextDefault>
+                            </Margin>
                         </Card>
                     </Padding>
                     <Padding horizontal={20} top={20}>
