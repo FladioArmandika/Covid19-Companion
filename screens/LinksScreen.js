@@ -13,7 +13,7 @@ export default function LinksScreen() {
   const [articles, setArticles] = useState([])
 
   useEffect(() => {
-    axios.get('https://newsapi.org/v2/everything?q=covid19&language=id&apiKey=f9a4af2a38864f37b7b75867f3e210a8','')
+    axios.get('https://newsapi.org/v2/everything?q=covid19&language=id&pageSize=10&apiKey=f9a4af2a38864f37b7b75867f3e210a8','')
       .then(res => {
         setArticles(res.data.articles)
       })

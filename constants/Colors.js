@@ -16,6 +16,10 @@ export default {
   primaryBackground: '#F6F5FB',
 
   primaryText: '#303952',
-  secondaryText: '#596275'
+  secondaryText: '#596275',
+
+  success: '#00b894',
+  danger: '#d63031',
+  warning: '#fdcb6e',
 
 };

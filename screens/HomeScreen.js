@@ -14,6 +14,8 @@ import Card from '../components/Card';
 import ButtonApp from '../components/ButtonApp.js';
 import { numbers } from '../helpers/numbers';
 import Background from '../components/Background';
+import Margin from '../components/Margin';
+import ButtonDefault from '../components/ButtonDefault';
 
 
 export default function HomeScreen({navigation}) {
@@ -21,7 +23,7 @@ export default function HomeScreen({navigation}) {
   const [GlobalData, setGlobalData] = useState({hit:[]})
   const [RegionalData, setRegionalData] = useState({hit:[]})
   const [nations, setNations] = useState([])
-  const [nation, setNation] = useState({})
+  
 
   const [indoData, setIndoData] = useState([])
 
@@ -59,88 +61,62 @@ export default function HomeScreen({navigation}) {
     })
   }
 
+  const goToGlobalDetail = () => {
+    const data = {
+      nations: nations,
+      kasus: GlobalData,
+    }
+    navigation.navigate('globaldetail', data)
+  }
+
   return (
     <Background bgprimary height='100%'>
       <View style={{marginTop:30}}>
         <MarginHorizontal>
           <Card>
+            <Margin bottom={20}>
+              <TextDefault xlarge center>Indonesia</TextDefault> 
+            </Margin>
             <Flex horizontal parent>
-              <Flex alignItems='flex-start'>
-                <TextDefault>Kasus</TextDefault>
-                <TextDefault>{numbers(indoData.jumlahKasus)}</TextDefault>
+              <Flex alignItems='center'>
+                <TextDefault colorWarning>Kasus</TextDefault>
+                <TextDefault bold large>{numbers(indoData.jumlahKasus)}</TextDefault>
               </Flex>
               <Flex alignItems='center'>
-                <TextDefault>Meninggal</TextDefault>
-                <TextDefault>{numbers(indoData.meninggal)}</TextDefault>
+                <TextDefault colorDanger>Meninggal</TextDefault>
+                <TextDefault bold large>{numbers(indoData.meninggal)}</TextDefault>
               </Flex>
-              <Flex alignItems='flex-end'>
-                <TextDefault>Sembuh</TextDefault>
-                <TextDefault>{numbers(indoData.sembuh)}</TextDefault>
+              <Flex alignItems='center'>
+                <TextDefault colorSuccess>Sembuh</TextDefault>
+                <TextDefault bold large>{numbers(indoData.sembuh)}</TextDefault>
               </Flex>
             </Flex>
             <ButtonApp primary onPress='indodetail' nav={navigation} marginTop={20}>Detail</ButtonApp>
           </Card>
-          <View style={{height: 100, marginTop: 10}}>
-            <TextDefault>Global</TextDefault>
-            <View style={styles.flexHorizontal}>
-              <View style={{...styles.card, flex: 1}}>
-                <Text style={{...styles.colorYellow}}>Kasus</Text>
-                <Text style={{...styles.textBold}}>{numbers(GlobalData.cases)}</Text>
-              </View>
-              <View style={{...styles.card, flex: 1}}>
-                <Text style={{...styles.colorRed}}>Meninggal</Text>
-                <Text style={{...styles.textBold}}>{numbers(GlobalData.deaths)}</Text>
-              </View>
-              <View style={[styles.card, {flex: 1}]}>
-                <Text style={[styles.colorGreen]}>Sembuh</Text>
-                <Text style={[styles.textBold]}>{numbers(GlobalData.recovered)}</Text>
-              </View>
-            </View>
-          </View>
-          <TextDefault>Regional</TextDefault>
-          <View style={[styles.card]}>
-            <View style={[styles.input]}>
-              <MarginHorizontal>
-                <Picker
-                  style={[]}
-                  mode="dropdown"
-                  selectedValue={nation}
-                  onValueChange={(e) => {
-                    setNation(e)
-                    changeRegional(e)
-                  }}> 
-                  {
-                    nations ? (
-                      nations.map((n) => {
-                        return (
-                          <Picker.Item label={n.country} value={n.country} key={n.country}/>
-                        )
-                      })
-                    ) : <Picker.Item label='loading' value={n.country} key={n.country}/>
-                  }
-                </Picker>
-              </MarginHorizontal>
-            </View>
-            <View style={{height: 100, marginTop: 10}}>
-              <View style={styles.flexHorizontal}>
-                <View style={{flex: 1}}>
-                  <TextDefault style={styles.colorYellow}>Cases</TextDefault>
-                  <Text style={styles.textBold}>{RegionalData.cases}</Text>
-                  <Text style={styles.textBold}>{ RegionalData.todayCases ? '(+' + RegionalData.todayCases + ')' : ''}</Text>
-                </View>
-                <View style={{flex: 1}}>
-                  <Text style={styles.colorRed}>Death</Text>
-                  <Text style={styles.textBold}>{RegionalData.deaths}</Text>
-                  <Text style={styles.textBold}>{ RegionalData.todayDeaths ? '(+' + RegionalData.todayDeaths + ')' : ''}</Text>
-                </View>
-                <View style={{flex: 1}}>
-                  <Text style={styles.colorGreen}>Recovered</Text>
-                  <Text style={styles.textBold}>{RegionalData.recovered}</Text>
-                  <Text style={styles.textBold}>{RegionalData.todayDeathsd}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+          <Margin top={20}>
+            <Card>
+              <Margin bottom={20}>
+                <TextDefault xlarge center>Global</TextDefault>
+              </Margin>
+              <Flex horizontal parent>
+                <Flex alignItems="center">
+                  <TextDefault colorWarning>Kasus</TextDefault>
+                  <TextDefault bold large>{numbers(GlobalData.cases)}</TextDefault>
+                </Flex>
+                <Flex alignItems="center">
+                  <TextDefault colorDanger>Meninggal</TextDefault>
+                  <TextDefault bold large>{numbers(GlobalData.deaths)}</TextDefault>
+                </Flex>
+                <Flex alignItems="center">
+                  <TextDefault colorSuccess>Sembuh</TextDefault>
+                  <TextDefault bold large>{numbers(GlobalData.recovered)}</TextDefault>
+                </Flex>
+              </Flex>
+              <ButtonDefault primary onPress={goToGlobalDetail} marginTop={20}>Detail</ButtonDefault>
+            </Card>
+          </Margin>
+          {/* <TextDefault>Regional</TextDefault> */}
+          
           
         </MarginHorizontal>
       </View> 

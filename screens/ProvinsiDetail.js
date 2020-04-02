@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import Background from '../components/Background'
 import TextDefault from '../components/TextDefault'
 import axios from "axios";
@@ -16,19 +16,28 @@ export default function ProvinsiDetail({route}) {
 
     useEffect(() => {
         
-        axios.get('https://indonesia-covid-19.mathdro.id/api/kasus','')
-            .then(res => {
-                const dataprov = []
-                res.data.data.map((e) => {
-                    if (e.provinsi == route.params.kodeProvi) {
-                        dataprov.push(e)
-                    }
-                })
-                setKasus(dataprov)
-            })
-            .catch(err => {
-                console.error(err); 
-            })
+        // axios.get('https://indonesia-covid-19.mathdro.id/api/kasus','')
+        //     .then(res => {
+        //         const dataprov = []
+        //         res.data.data.map((e) => {
+        //             if (e.provinsi == route.params.kodeProvi) {
+        //                 dataprov.push(e)
+        //             }
+        //         })
+        //         setKasus(dataprov)
+        //     })
+        //     .catch(err => {
+        //         console.error(err); 
+        //     })
+
+        const dataprov = []
+        route.params.kasusOrang.map((e) => {
+            if (e.provinsi == route.params.provinsi.kodeProvi) {
+                dataprov.push(e)
+            }
+        })
+        // Alert.alert(JSON.stringify(dataprov))
+        setKasus(dataprov)
 
     }, [])
 
@@ -41,11 +50,11 @@ export default function ProvinsiDetail({route}) {
                     top={0} z={0}></Background>
                 <View>
                     <Padding horizontal={20} top={50}>
-                        <TextDefault xlarge white>{route.params.provinsi}</TextDefault>
+                        <TextDefault xlarge white>{route.params.provinsi.provinsi}</TextDefault>
                     </Padding>
                 </View>
                 <View>
-                    <Padding horizontal={20} top={50}>
+                    <Padding horizontal={20} top={50}>  
                         {
                             kasus ? 
                             kasus.map((e) => {

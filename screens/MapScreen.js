@@ -75,7 +75,7 @@ export default function MapScreen({navigator}) {
     return (
         <Background>
             <Container absolute top={0} left={0} width='100%' height={200} z={5}>
-                <Padding>
+                <Padding horizontal={20} top={50}>
                     <Card>
                         <TextDefault>Good</TextDefault>
                     </Card>

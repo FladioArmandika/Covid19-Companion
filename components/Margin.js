@@ -1,21 +1,26 @@
 import React from 'react'
 import { View } from 'react-native'
 
-export default function Margin(props) {
+export default function Margin({
+    children,
+    top,bottom,left,right,
+    vertical, horizontal,
+    start, end, all
+}) {
     return (
         <View
             style={[
-                props.top ? {marginTop: props.top} : '',
-                props.bottom ? {marginBottom: props.bottom} : '',
-                props.left ? {marginLeft: props.left} : '',
-                props.right ? {marginRight: props.right} : '',
-                props.vertical ? {marginVertical: props.vertical} : '',
-                props.horizontal ? {marginHorizontal: props.horizontal} : '',
-                props.start ? {marginStart: props.start} : '',
-                props.end ? {marginEnd: props.end} : '',
-                props.all ? {margin: props.all} : '',
+                top ? {paddingTop: top} : '',
+                bottom ? {paddingBottom: bottom} : '',
+                left ? {paddingLeft: left} : '',
+                right ? {paddingRight: right} : '',
+                vertical ? {paddingVertical: vertical} : '',
+                horizontal ? {paddingHorizontal: horizontal} : '',
+                start ? {paddingStart: start} : '',
+                end ? {paddingEnd: end} : '',
+                all ? {padding: all} : '',
             ]}>
-            {props.children}
+            {children}
         </View>
     )
 }

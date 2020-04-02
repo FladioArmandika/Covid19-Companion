@@ -6,16 +6,23 @@ import Colors from '../constants/Colors';
 export default function TextDefault({
         children, secondary,
         small, medium, large, xlarge, jumbo, 
-        white, bold, style
+        white, bold, style, center,
+        colorPrimary,
+        colorDanger, colorWarning, colorSuccess
     }) {
     return (
         <Text style={[
                 {fontFamily:'gotham-medium'}, 
                 {color: Colors.primaryText},
                 style, 
+                center ? {textAlign: "center"} : '',
                 bold ? styles.bold : '', 
                 white ? styles.white: '',
                 secondary ? {color: Colors.secondaryText} : '',
+                colorPrimary ? {color: Colors.primary} : '',
+                colorDanger ? {color: Colors.danger} : '',
+                colorWarning ? {color: Colors.warning} : '',
+                colorSuccess ? {color: Colors.success} : '',
                 jumbo ? {fontSize: normalize(24)} : '',
                 xlarge ? {fontSize: normalize(20)} : '',
                 large ? {fontSize: normalize(16)} : '',

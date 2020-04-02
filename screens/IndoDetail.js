@@ -19,9 +19,9 @@ export default function IndoDetail({navigation}) {
     const [kasus, setKasus] = useState([])
     const [kasusProvinsi, setKasusProvinsi] = useState(null)
     const [kasusHarian, setKasusHarian] = useState(null)
+    const [kasusOrang, setKasusOrang] = useState(null)
 
     useEffect(() => {
-
         // GET DATA BERDASARKAN PROVINSI
         axios.get('https://indonesia-covid-19.mathdro.id/api/provinsi','')
             .then(res => {
@@ -43,22 +43,29 @@ export default function IndoDetail({navigation}) {
         // GET DATA HARIAN
         axios.get('https://indonesia-covid-19.mathdro.id/api/harian','')
             .then(res => {
-                // const dateNow = new Date(1585440000000).getTime()
-                // const dateD = new Date(1585353600000).getTime()
-
-                // // 86400000
-                // const dateResult = dateNow - dateD
-
                 const lastData = res.data.data.reverse()[0]
                 setKasusHarian(lastData)
             })
             .catch(err => {
               console.error(err); 
             })
+
+        // GET DATA KASUS
+        axios.get('https://indonesia-covid-19.mathdro.id/api/kasus','')
+            .then(res => {
+                setKasusOrang(res.data.data)
+            })
+            .catch(err => {
+                console.error(err); 
+            })
     }, [])
 
     const goToProvinsiDetail = (provinsi) => {
-        navigation.navigate('provinsidetail', provinsi)
+        const kasusProv = {
+            provinsi: provinsi,
+            kasusOrang: kasusOrang
+        }
+        navigation.navigate('provinsidetail', kasusProv)
     }
 
     return (
@@ -77,33 +84,43 @@ export default function IndoDetail({navigation}) {
                         <Card>
                             <Flex horizontal spacebetween parent>
                                 <Flex alignItems='center'>
-                                    <TextDefault>Perawatan</TextDefault>
-                                    <TextDefault>{numbers(kasus.perawatan)}</TextDefault>
+                                    <TextDefault colorWarning>Perawatan</TextDefault>
+                                    <TextDefault bold large>{numbers(kasus.perawatan)}</TextDefault>
                                     { kasusHarian && kasusHarian.jumlahKasusBaruperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusBaruperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                                 <Flex alignItems='center'>
-                                    <TextDefault>Meninggal</TextDefault>
-                                    <TextDefault>{numbers(kasus.meninggal)}</TextDefault>
+                                    <TextDefault colorDanger>Meninggal</TextDefault>
+                                    <TextDefault bold large>{numbers(kasus.meninggal)}</TextDefault>
                                     { kasusHarian && kasusHarian.jumlahKasusMeninggalperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusMeninggalperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                                 <Flex alignItems='center'>
-                                    <TextDefault>Sembuh</TextDefault>
-                                    <TextDefault>{numbers(kasus.sembuh)}</TextDefault>
+                                    <TextDefault colorSuccess>Sembuh</TextDefault>
+                                    <TextDefault bold large>{numbers(kasus.sembuh)}</TextDefault>
                                     { kasusHarian && kasusHarian.jumlahKasusSembuhperHari ? 
                                       <TextDefault>(+{kasusHarian.jumlahKasusSembuhperHari})</TextDefault> : <TextDefault></TextDefault>
                                     }
                                 </Flex>
                             </Flex>
+                            <TextDefault small center>
+                                {
+                                    kasusHarian ?  
+                                    'terakhir update : ' +
+                                    new Date(kasusHarian.tanggal).getDate() + '-' + 
+                                    new Date(kasusHarian.tanggal).getMonth() + '-' + 
+                                    new Date(kasusHarian.tanggal).getFullYear()
+                                    : ''
+                                }
+                            </TextDefault>
                         </Card>
                     </Padding>
                     <Padding horizontal={20} top={20}>
                         <TextDefault xlarge>Provinsi</TextDefault>
                         {
-                            kasusProvinsi ?
+                            kasusProvinsi && kasusOrang?
                             kasusProvinsi.map((e) => {
                                 return (
                                     <Card>

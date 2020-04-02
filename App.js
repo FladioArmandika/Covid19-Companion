@@ -10,6 +10,7 @@ import BottomTabNavigator from './navigation/BottomTabNavigator';
 import useLinking from './navigation/useLinking';
 import IndoDetail from './screens/IndoDetail';
 import ProvinsiDetail from './screens/ProvinsiDetail';
+import GlobalDetail from './screens/GlobalDetail';
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,7 @@ export default function App(props) {
             <Stack.Screen name="Root" component={BottomTabNavigator} />
             <Stack.Screen name="indodetail" component={IndoDetail} />
             <Stack.Screen name="provinsidetail" component={ProvinsiDetail} />
+            <Stack.Screen name="globaldetail" component={GlobalDetail} />
           </Stack.Navigator>
         </NavigationContainer>
       </View>

@@ -13,6 +13,7 @@ export default function(containerRef) {
           Settings: 'settings',
           IndoDetail: 'indodetail',
           ProvinsiDetail: 'provinsidetail',
+          GlobalDetail: 'globaldetail',
         },
       },
     },
