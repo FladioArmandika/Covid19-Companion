@@ -23,5 +23,6 @@ export default {
   success: '#00b894',
   danger: '#d63031',
   warning: '#fdcb6e',
+  gay: '#000000',
 
 };
